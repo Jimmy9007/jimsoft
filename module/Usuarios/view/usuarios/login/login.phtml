@@ -1,0 +1,91 @@
+<?php
+$form = $this->formLogin;
+$form->prepare();
+//$form->setAttribute('action', $this->url('login/default', array('controller' => 'login', 'action' => 'login')));
+echo $this->form()->openTag($form);
+?>
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <div class="x_panel" style="background-color: rgba(0, 0, 0, 0.75); border-radius: 32px; border: dotted 3px #702cf6;">
+                <section class="login_content">
+                    <form>
+                        <h2 style="color: #FFFFFF;"><b><i>Iniciar Sesión</i></b> <i class="fa fa-sign-in"></i></h2>
+                        <div>
+                            <input type="text" id="login" name="login" class="form-control" placeholder="Usuario" required />
+                        </div>
+                        <div>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required />
+                            <span style="position: absolute;right:15px;top:127px;" onclick="hideshow()">
+                                <i id="slash" class="fa fa-eye-slash"></i>
+                                <i id="eye" class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-success" style="background-color: #702cf6; border-color: #702cf6;">Iniciar sesión <i class="fa fa-sign-in"></i></button>
+                            <a href="#" style="color:greenyellow;">&iquest;Perdiste tu contraseña&quest;</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link" style="color: #FFFFFF;">&iquest;Nuevo en el sitio&quest;
+                                <a href="#signup" style="color:greenyellow;"> Crear una cuenta </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h2 class="animated bounce hvr-buzz estilologo"><b><i><i class="fa fa-paw"></i>JimSoft</i></b></h2>
+                                <p style="color: #FFFFFF;"><b><i><i class="fa fa-paw"></i>JimSoft</i></b> <small>Software e Ingeniería</small> &copy; Copyright 2023</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+            <div class="x_panel" style="background-color: rgba(0, 0, 0, 0.75); border-radius: 32px; border: dotted 3px #702cf6;">
+                <section class="login_content">
+                    <form>
+                        <h2 style="color:#FFFFFF"><b><i>Registrarse</i></b></h1>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Nombre de usuario" required="" />
+                            </div>
+                            <div>
+                                <input type="email" class="form-control" placeholder="Correo electrónico" required="" />
+                            </div>
+                            <div>
+                                <input type="password" class="form-control" placeholder="Contraseña" required="" />
+                            </div>
+                            <div>
+                                <a type="bootom" href="index.html" class="btn btn-success" style="background-color: #702cf6; border-color: #702cf6;">Registrarse</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <p class="change_link" style="color:#FFFFFF">&iquest;Ya eres usuario&quest;
+                                    <a href="#signin" style="color:greenyellow;"> Acceso </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h2 class="animated bounce hvr-buzz estilologo"><b><i><i class="fa fa-paw"></i>JimSoft</i></b></h2>
+                                    <p style="color: #FFFFFF;"><b><i><i class="fa fa-paw"></i>JimSoft</i></b> <small>Software e Ingeniería</small> &copy; Copyright 2023</p>
+                                </div>
+                            </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<?= $this->form()->closeTag() ?>

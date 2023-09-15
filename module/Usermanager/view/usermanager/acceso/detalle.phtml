@@ -1,0 +1,436 @@
+<div class="modal-body">
+    <div style="padding: 10px" class="container-fluid">
+        <fieldset>
+            <legend>Informacion del contrato laboral</legend>
+            <div class="form-row">
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="identificacion">Identificacion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['identificacion']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-8 col-sm-12">
+                    <label class="control-label" for="nombre">Nombre</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['nombre'] . " " . $this->form['apellido']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="tipo">Tipo de contrato laboral</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['tipo']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="cargo">Cargo</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['cargo']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="fechaContratacion">Fecha de contratacion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['fechaContratacion']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="duracion">Duracion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['duracion']; ?> días" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="fechaTerminacion">Fecha de terminacion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['fechaTerminacion']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="sueldoBase">Sueldo base</label>
+                    <div class="input-group">
+                        <input type='text' value="$ <?php echo number_format($this->form['sueldoBase']); ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <b>$</b>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="banco">Banco</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['banco']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="numCuenta">Numero de cuenta</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['numCuenta']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="eps">EPS</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['eps']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="pensiones">Pensiones</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['pensiones']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="arl">ARL</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['arl']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="cajaCompensacion">Caja de conpensacion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['cajaCompensacion']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="cesantias">Cesantias</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['cesantias']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="horarioLaboral">Horario laboral</label>
+                    <div class="input-group">
+                        <textarea class="form-control" readonly>
+                        <?php echo $this->form['horarioLaboral']; ?>
+                        </textarea>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="funciones">Funciones</label>
+                    <div class="input-group">
+                        <textarea class="form-control" readonly>
+                        <?php echo $this->form['funciones']; ?>
+                        </textarea>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-text-width"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                if ($this->form['aplicaRodamiento'] == 1) {
+                ?>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="control-label" for="vlrRodamiento">Valor rodamiento</label>
+                        <div class="input-group">
+                            <input type='text' value="$ <?php echo number_format($this->form['vlrRodamiento']); ?>" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <b>$</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if ($this->form['aplicaPeriodoPrueba'] == 1) {
+                ?>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="control-label" for="duracionPrueba">Duracion prueba</label>
+                        <div class="input-group">
+                            <input type='text' value="<?php echo $this->form['duracionPrueba']; ?> días" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if ($this->form['aplicaBonificacion'] == 1) {
+                ?>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="control-label" for="vlrBonificacion">Valor rodamiento</label>
+                        <div class="input-group">
+                            <input type='text' value="$ <?php echo number_format($this->form['vlrBonificacion']); ?>" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <b>$</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="especialidad">Especialidad</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['especialidad']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-user-tie"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="numGrupo">Número de grupo</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['numGrupo']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="lugarPractica">Lugar practica</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['lugarPractica']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="supervisor">Supervisor</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['supervisor']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-user-tie"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="centroDeFormacion">Centro De Formacion</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['centroDeFormacion']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-hospital"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                if ($this->form['fechaVenceAlturas'] != '0000-00-00') {
+                ?>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="control-label" for="fechaVenceAlturas">Fecha Vencimiento Alturas</label>
+                        <div class="input-group">
+                            <input type='text' value="<?php echo $this->form['fechaVenceAlturas']; ?>" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="fechaFirma">Fecha Firma</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['fechaFirma']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="lugarTrabajo">Lugar de trabajo</label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['lugarTrabajo']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                if ($this->form['sumaraportes'] == 1) {
+                ?>
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="control-label" for="vlrBonificacion">Valor rodamiento</label>
+                        <div class="input-group">
+                            <input type='text' value="$ <?php echo number_format($this->form['vlraportes']); ?>" class="form-control" readonly />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <b>$</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Informacion del registro</legend>
+            <div class="form-row">
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="idContratoLaboral"><i class="fa fa-key"></i></label>
+                    <div class="input-group">
+                        <input type='text' value="<?php echo $this->form['idContratoLaboral']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="estado">Estado</label>
+                    <div class="input-group">
+                        <input type='text' id="estado" name="estado" value="<?php echo $this->form['estado']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="registradopor">Registrado</label>
+                    <div class="input-group">
+                        <input type='text' id="registradopor" name="registradopor" value="<?php echo $this->form['registradopor']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="modificadopor">Modificado</label>
+                    <div class="input-group">
+                        <input type='text' id="modificadopor" name="modificadopor" value="<?php echo $this->form['modificadopor']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="fechahorareg">Registrado</label>
+                    <div class="input-group">
+                        <input type='text' id="fechahorareg" name="fechahorareg" value="<?php echo $this->form['fechahorareg']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="fechahoramod">Modificado</label>
+                    <div class="input-group">
+                        <input type='text' id="fechahoramod" name="fechahoramod" value="<?php echo $this->form['fechahoramod']; ?>" class="form-control" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 20px">
+    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+</div>

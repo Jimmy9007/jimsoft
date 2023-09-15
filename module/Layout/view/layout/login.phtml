@@ -1,0 +1,145 @@
+<?php
+//--------- CARGAR MENSAJES DE ALERTA ------------------------------------------
+$flash = $this->flashMessenger();
+$notificaciones = [
+    'success' => array_merge($flash->getSuccessMessages(), $flash->getCurrentSuccessMessages()),
+    'error' => array_merge($flash->getErrorMessages(), $flash->getCurrentErrorMessages()),
+    'alert' => array_merge($flash->getMessages(), $flash->getCurrentMessages()),
+    'information' => array_merge($flash->getInfoMessages(), $flash->getCurrentInfoMessages()),
+    'warning' => array_merge($flash->getWarningMessages(), $flash->getCurrentWarningMessages()),
+];
+$flash->clearCurrentMessages('default');
+$flash->clearCurrentMessages('info');
+$flash->clearCurrentMessages('success');
+$flash->clearCurrentMessages('warning');
+$flash->clearCurrentMessages('error');
+$mostrarMensajes = '';
+foreach (array_filter($notificaciones) as $tipo => $mensajes) {
+    $tipoToastr = 'info';
+    $titulo = 'JimSoft';
+    switch ($tipo) {
+        case 'success':
+            $titulo = '<p><b><i><i class="fa fa-paw"></i> JimSoft</i></b></p>';
+            $tipoToastr = 'success';
+            break;
+        case 'error':
+            $titulo = '<p><b><i><i class="fa fa-paw"></i> JimSoft</i></b></p>';
+            $tipoToastr = 'error';
+            break;
+        case 'alert':
+            $titulo = '<p><b><i><i class="fa fa-paw"></i> JimSoft</i></b></p>';
+            $tipoToastr = 'warning';
+            break;
+        case 'information':
+            $titulo = '<p><b><i><i class="fa fa-paw"></i> JimSoft</i></b></p>';
+            $tipoToastr = 'info';
+            break;
+        case 'warning':
+            $titulo = '<p><b><i><i class="fa fa-paw"></i> JimSoft</i></b></p>';
+            $tipoToastr = 'warning';
+            break;
+    }
+    foreach ($mensajes as $mensaje) {
+        $mostrarMensajes .= "new PNotify({
+            title: '$titulo',
+            text: '$mensaje',
+            type: '$tipoToastr',
+            styling: 'bootstrap3'
+        });";
+    }
+}
+//------------------------------------------------------------------------------
+echo $this->doctype();
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JimSoft">
+    <meta name="author" content="JimSoft">
+    <meta name="generator" content="JimSoft 1.0">
+
+    <title>JimSoft :: Iniciar Sesion</title>
+    <?php
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'));
+    echo $this->headScript()
+        ->prependFile($this->basePath('js/jquery-3.6.0.min.js'), 'text/javascript');
+    ?>
+
+    <link href="<?php echo $this->basePath('vendors/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="<?php echo $this->basePath('vendors/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<?php echo $this->basePath('vendors/nprogress/nprogress.css'); ?>" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="<?php echo $this->basePath('vendors/animate.css/animate.min.css'); ?>" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.css'); ?>" rel="stylesheet">
+    <link href="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.buttons.css'); ?>" rel="stylesheet">
+    <link href="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.nonblock.css'); ?>" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="<?= $this->basePath('build/css/custom.min.css'); ?>" rel="stylesheet">
+    <link href="<?= $this->basePath('css/hover.css'); ?>" rel="stylesheet">
+
+    <style>
+        .login {
+            background: url(<?= $this->basePath('img/fondoLogin.jpg') ?>) fixed 50%;
+            background-size: cover;
+        }
+
+        .estilologo {
+            color: #702cf6;
+            text-shadow: grey 0.1em 0.1em 0.2em;
+            font-size: 40px;
+        }
+
+        .form-control {
+            margin: 0 auto;
+            border: none;
+            border: dotted 3px #702cf6;
+            color: #fff;
+            background-color: black;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+    </style>
+
+</head>
+
+<body class="login">
+    <?= $this->content; ?>
+    <!-- PNotify -->
+    <script src="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.js'); ?>"></script>
+    <script src="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.buttons.js'); ?>"></script>
+    <script src="<?php echo $this->basePath('vendors/pnotify/dist/pnotify.nonblock.js'); ?>"></script>
+    <script>
+        $(document).ready(function() {
+            <?= $mostrarMensajes; ?>
+        });
+
+        function hideshow() {
+            var password = document.getElementById("password");
+            var slash = document.getElementById("slash");
+            var eye = document.getElementById("eye");
+
+            if (password.type === 'password') {
+                password.type = "text";
+                slash.style.display = "block";
+                eye.style.display = "none";
+            } else {
+                password.type = "password";
+                slash.style.display = "none";
+                eye.style.display = "block";
+            }
+
+        }
+    </script>
+</body>
+
+</html>

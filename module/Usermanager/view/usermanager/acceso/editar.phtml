@@ -1,0 +1,528 @@
+<?php
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<div class="modal-body ui-front">
+    <div style="padding: 10px" class="container-fluid">
+        <fieldset>
+            <legend>Filtro de busqueda de empleado</legend>
+            <div class="form-row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="identificacionBusqAux">Identificacion <i class="fa fa-info-circle fa-lg text-warning" title="DIGITE LA CEDULA DEL EMPLEADO"></i></label>
+                    <div class="input-group">
+                        <input type="number" name="identificacionBusqAux" id="identificacionBusqAux" class="form-control" />
+                        <div class="input-group-append">
+                            <span class="input-group">
+                                <button type="button" id="btnBuscarByIdentificacion" onclick="buscarByIdentificacion()" class="btn btn-primary"><i class="fas fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="control-label" for="user">Autocomplete <i class="fa fa-info-circle fa-lg text-warning" title="DIGITE LAS PRIMERAS 5 LETRAS DEL NOMBRE O DEL APELLIDO"></i></label>
+                    <div class="input-group">
+                        <input type="text" id="empleadoBusq" name="empleadoBusq" value="" maxlength="80" style="text-transform: uppercase" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divInfoEmpleado"></div>
+        </fieldset>
+        <fieldset>
+            <legend>Llene los datos del contrato laboral</legend>
+            <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('idEmpleado')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('idEmpleado')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-user-tie"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('idTipoContratoLaboral')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('idTipoContratoLaboral')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('cargo')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('cargo')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('fechaContratacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechaContratacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('fechaTerminacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechaTerminacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('duracion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('duracion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('sueldoBase')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('sueldoBase')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                $
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('banco')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('banco')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('numCuenta')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('numCuenta')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('eps')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('eps')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('pensiones')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('pensiones')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('arl')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('arl')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('cajaCompensacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('cajaCompensacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('cesantias')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('cesantias')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('horarioLaboral')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('horarioLaboral')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('funciones')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('funciones')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-university"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('aplicaRodamiento')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('aplicaRodamiento')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divVlrRodamiento" class="form-group col-md-6 col-sm-12" <?php
+                                                                                    if ($form->get('aplicaRodamiento')->getValue() == 0) {
+                                                                                        echo 'hidden';
+                                                                                    } ?>>
+                    <?= $this->formLabel($form->get('vlrRodamiento')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('vlrRodamiento')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                $
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('aplicaPeriodoPrueba')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('aplicaPeriodoPrueba')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDuracionPrueba" class="form-group col-md-6 col-sm-12" <?php if ($form->get('aplicaPeriodoPrueba')->getValue() == 0) {
+                                                                                        echo 'hidden';
+                                                                                    } ?>>
+                    <?= $this->formLabel($form->get('duracionPrueba')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('duracionPrueba')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('aplicaBonificacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('aplicaBonificacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divVlrBonificacion" class="form-group col-md-6 col-sm-12" <?php
+                                                                                    if ($form->get('aplicaBonificacion')->getValue() == 0) {
+                                                                                        echo 'hidden';
+                                                                                    } ?>>
+                    <?= $this->formLabel($form->get('vlrBonificacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('vlrBonificacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                $
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('especialidad')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('especialidad')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('numGrupo')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('numGrupo')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('lugarPractica')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('lugarPractica')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('supervisor')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('supervisor')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('centroDeFormacion')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('centroDeFormacion')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divFechaVenceAlturas" class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('fechaVenceAlturas')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechaVenceAlturas')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('fechaFirma')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechaFirma')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('lugarTrabajo')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('lugarTrabajo')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <?= $this->formLabel($form->get('sumaraportes')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('sumaraportes')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divVlraportes" class="form-group col-md-6 col-sm-12" <?php
+                                                                                if ($form->get('sumaraportes')->getValue() == 0) {
+                                                                                    echo 'hidden';
+                                                                                } ?>>
+                    <?= $this->formLabel($form->get('vlraportes')) ?>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('vlraportes')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Informacion del registro</legend>
+            <div class="form-row">
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="idContratoLaboral"><i class="fa fa-key"></i></label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('idContratoLaboral')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="estado">Estado</label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('estado')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-list-alt"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="registradopor">Registrado</label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('registradopor')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="modificadopor">Modificado</label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('modificadopor')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="fechahorareg">Registrado</label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechahorareg')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                    <label class="control-label" for="fechahoramod">Modificado</label>
+                    <div class="input-group">
+                        <?= $this->formElement($form->get('fechahoramod')) ?>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 20px">
+    <button type="submit" class="btn btn-success" title="EDITAR CONTRATO LABORAL"><i class="fas fa-save"></i> Editar CL</button>
+    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+</div>
+<?php
+echo $this->form()->closeTag();
+?>
+<script>
+    //------------------------------------------------------------------------------
+    // FUNCION PARA AUTOCOMPLETAR
+    //------------------------------------------------------------------------------
+    $("#empleadoBusq").autocomplete({
+        minLength: 5,
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: '<p style="color:#FF0000";><i class="fa fa-close"></i> Lo sentimos, no hay resultados coincidentes.</p>',
+        source: function(request, response) {
+            $.ajax({
+                url: "buscarEmpleado",
+                dataType: "json",
+                data: {
+                    buscarEmpleado: request.term
+                },
+                success: function(data) {
+                    response($.map(data, function(buscarEmpleadoOBJ) {
+                        var buscarEmpleado = '';
+                        buscarEmpleado = $.trim(buscarEmpleadoOBJ.nombre);
+                        return {
+                            data: buscarEmpleadoOBJ.idEmpleado,
+                            value: buscarEmpleado
+                        };
+                    }));
+                }
+            });
+        },
+        select: function(e, ui) {
+            $("#divInfoEmpleado").html('');
+            $.ajax({
+                url: "getEmpleado",
+                dataType: "html",
+                data: {
+                    idEmpleado: ui.item.data
+                },
+                success: function(html) {
+                    $("#divInfoEmpleado").html(html);
+                    $("#idEmpleado").val($("#idEmpleadoAux").val());
+                }
+            });
+            bloqueoAjax();
+        },
+        invalidateSelection: function() {}
+    });
+</script>
