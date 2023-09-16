@@ -123,13 +123,13 @@ $this->headScript()->prependScript('
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>User Profile</h3>
+            <h3>Perfil del usuario</h3>
         </div>
 
         <div class="title_right">
             <div class="col-md-5 col-sm-5  form-group pull-right top_search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" class="form-control" placeholder="Buscar...">
                     <span class="input-group-btn">
                         <button class="btn btn-secondary" type="button">Go!</button>
                     </span>
@@ -144,7 +144,7 @@ $this->headScript()->prependScript('
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>User Report <small>Activity report</small></h2>
+                    <h2>Informe de usuario <small>Informe de actividad</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -162,12 +162,18 @@ $this->headScript()->prependScript('
                 </div>
                 <div class="x_content">
                     <div class="col-md-3 col-sm-3  profile_left">
-                        <div class="profile_img">
+                        <div class="profile_img image view view-first">
                             <div id="crop-avatar">
                                 <!-- Current avatar -->
                                 <label class="label" data-toggle="tooltip" title="Cambie tu avatar">
-                                    <img style="border-radius: 10px;" id="avatar" class="img-responsive avatar-view" src="<?= $this->basePath('img/profile/') . $this->foto; ?>" width="100%" alt="Avatar" title="Cambie el avatar">
+                                    <img style="border-radius: 10px; display: block;" id="avatar" class="img-responsive avatar-view" src="<?= $this->basePath('img/profile/') . $this->foto; ?>" width="100%" alt="Avatar" title="Cambie el avatar">
                                     <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+                                    <div class="mask">
+                                        <p>Your Text</p>
+                                        <div class="tools tools-bottom">
+                                            <a href="javascript:verFoto()"><i class="fa fa-search-plus"></i></a>
+                                        </div>
+                                    </div>
                                 </label>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
@@ -235,7 +241,7 @@ $this->headScript()->prependScript('
                                 </li>
                                 <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects</a>
                                 </li>
-                                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
+                                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Mensajes</a>
                                 </li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
@@ -262,35 +268,24 @@ $this->headScript()->prependScript('
                                                 </div>
 
                                                 <div class="clearfix"></div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
+                                                <?php
+                                                foreach ($this->usuarios as $user) {
+                                                    echo '<div class="col-md-4 col-sm-4  profile_details">
                                                     <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-md-7 col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
+                                                        <div class="col-sm-12">';
+                                                    echo '<h4 class="brief"><i>' . $user['identificacion'] . '</i></h4>';
+                                                    echo '<div class="left col-md-7 col-sm-7">';
+                                                    echo '<h2>' . substr($user['usuario'], 0, 15) . '</h2>';
+                                                    echo '<ul class="list-unstyled">';
+                                                    echo '<li><i class="fa fa-phone"></i> <b>' . $user['telefono'] . '</b></li>';
+                                                    echo '</ul>
                                                             </div>
-                                                            <div class="right col-md-5 col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilHombre.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
+                                                            <div class="right col-md-5 col-sm-5 text-center">';
+                                                    echo '<img src="' . $this->basePath('img/profile/') . $user['foto'] . '" alt="' . $user['usuario'] . '" class="img-circle img-fluid">';
+                                                    echo '</div>
                                                         </div>
-                                                        <div class=" profile-bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
+                                                        <div class=" profile-bottom text-center">                                                          
+                                                            <div class=" col-sm-12 emphasis">
                                                                 <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
                                                                     </i> <i class="fa fa-comments-o"></i> </button>
                                                                 <button type="button" class="btn btn-primary btn-sm">
@@ -299,311 +294,9 @@ $this->headScript()->prependScript('
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilHombre.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 col-sm-4  profile_details">
-                                                    <div class="well profile_view">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="brief"><i>Digital Strategist</i></h4>
-                                                            <div class="left col-sm-7">
-                                                                <h2>Nicole Pearson</h2>
-                                                                <p><strong>About: </strong> Web Designer / UI. </p>
-                                                                <ul class="list-unstyled">
-                                                                    <li><i class="fa fa-building"></i> Address: </li>
-                                                                    <li><i class="fa fa-phone"></i> Phone #: </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="right col-sm-5 text-center">
-                                                                <img src="<?= $this->basePath('img/profile/perfilMujer.png'); ?>" alt="" class="img-circle img-fluid">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" bottom text-center">
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <p class="ratings">
-                                                                    <a>4.0</a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star"></span></a>
-                                                                    <a href="#"><span class="fa fa-star-o"></span></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class=" col-sm-6 emphasis">
-                                                                <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-                                                                    </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </div>';
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -675,8 +368,73 @@ $this->headScript()->prependScript('
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                                        photo booth letterpress, commodo enim craft beer mlkshk </p>
+                                    <ul class="messages">
+                                        <li>
+                                            <img src="<?= $this->basePath('img/profile/perfilMujer.png') ?>" class="avatar" alt="Avatar">
+                                            <div class="message_date">
+                                                <h3 class="date text-info">24</h3>
+                                                <p class="month">May</p>
+                                            </div>
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">Desmond Davison</h4>
+                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                <br />
+                                                <p class="url">
+                                                    <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                                    <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="<?= $this->basePath('img/profile/perfilHombre.png') ?>" class="avatar" alt="Avatar">
+                                            <div class="message_date">
+                                                <h3 class="date text-error">21</h3>
+                                                <p class="month">May</p>
+                                            </div>
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">Brian Michaels</h4>
+                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                <br />
+                                                <p class="url">
+                                                    <span class="fs1" aria-hidden="true" data-icon=""></span>
+                                                    <a href="#" data-original-title="">Download</a>
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="<?= $this->basePath('img/profile/perfilMujer.png') ?>" class="avatar" alt="Avatar">
+                                            <div class="message_date">
+                                                <h3 class="date text-info">24</h3>
+                                                <p class="month">May</p>
+                                            </div>
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">Desmond Davison</h4>
+                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                <br />
+                                                <p class="url">
+                                                    <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                                    <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="<?= $this->basePath('img/profile/perfilHombre.png') ?>" class="avatar" alt="Avatar">
+                                            <div class="message_date">
+                                                <h3 class="date text-error">21</h3>
+                                                <p class="month">May</p>
+                                            </div>
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">Brian Michaels</h4>
+                                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                                <br />
+                                                <p class="url">
+                                                    <span class="fs1" aria-hidden="true" data-icon=""></span>
+                                                    <a href="#" data-original-title="">Download</a>
+                                                </p>
+                                            </div>
+                                        </li>
+
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -742,6 +500,14 @@ $this->headScript()->prependScript('
 </div>
 
 <script>
+    function verFoto() {
+        Swal.fire({
+            imageUrl: '<?= $this->basePath('img/profile/') . $this->foto; ?>',
+            imageHeight: 490,
+            imageAlt: 'Foto de Perfil'
+        });
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
         var avatar = document.getElementById('avatar');
         var image = document.getElementById('image');

@@ -23,31 +23,36 @@ class PerfilDAO extends AbstractTableGateway
     }
 
     //------------------------------------------------------------------------------
-    public function fetchAll($filtro = '')
+    public function usuariosAll($filtro = '')
     {
-        $this->table = 'empleadocliente';
+        $this->table = 'usuario';
         $select = new Select($this->table);
         $select->columns([
+            'idUsuario',
             'idEmpleadoCliente',
-            'nombre',
-            'apellido',
-            'tipoIdentificacion',
+            'idRol',
+            'usuario',
+            'login',
+            'password',
+            'passwordseguro',
+            'foto',
+            'estado',
+            'registradopor',
+            'modificadopor',
+            'fechahorareg',
+            'fechahoramod',
+        ])->join('empleadocliente', 'empleadocliente.idEmpleadoCliente = usuario.idEmpleadoCliente', array(
             'identificacion',
             'fechaNacimiento',
             'email',
             'telefono',
             'direccion',
-            'estado',
             'genero',
-            'registradopor',
-            'modificadopor',
-            'fechahorareg',
-            'fechahoramod',
-        ]);
+        ));
         if ($filtro != '') {
             $select->where($filtro);
         } else {
-            $select->order("empleadocliente.idEmpleadoCliente DESC")->limit(25);
+            $select->order("usuario.idUsuario DESC");
         }
         //        echo $select->getSqlString();
         return $this->selectWith($select)->toArray();

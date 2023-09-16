@@ -60,10 +60,13 @@ class PerfilController extends AbstractActionController
     //------------------------------------------------------------------------------
     public function indexAction()
     {
+        $filtro = " usuario.estado = 'Activo' ORDER BY usuario.idUsuario DESC";
         $infosesion = $this->getInfoSesion();
+        $usuarios = $this->DAO->usuariosAll($filtro);
         return new ViewModel([
             'usuario' =>  $infosesion['usuario'],
             'foto' =>  $infosesion['foto'],
+            'usuarios' =>  $usuarios,
         ]);
     }
 
