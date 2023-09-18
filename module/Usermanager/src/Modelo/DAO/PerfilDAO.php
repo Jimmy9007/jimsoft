@@ -57,26 +57,32 @@ class PerfilDAO extends AbstractTableGateway
         //        echo $select->getSqlString();
         return $this->selectWith($select)->toArray();
     }
-    public function getEmpleadoDetalle($idEmpleado = 0)
+    public function getUsuarioDetalle($idUsuario = 0)
     {
-        $select = new Select('empleadocliente');
+        $select = new Select('usuario');
         $select->columns(array(
+            'idUsuario',
             'idEmpleadoCliente',
-            'nombre',
-            'apellido',
+            'idRol',
+            'usuario',
+            'login',
+            'password',
+            'passwordseguro',
+            'foto',
+            'estado',
+            'registradopor',
+            'modificadopor',
+            'fechahorareg',
+            'fechahoramod',
+        ))->join('empleadocliente', 'empleadocliente.idEmpleadoCliente = usuario.idEmpleadoCliente', array(
             'tipoIdentificacion',
             'identificacion',
             'fechaNacimiento',
             'email',
             'telefono',
             'direccion',
-            'estado',
             'genero',
-            'registradopor',
-            'modificadopor',
-            'fechahorareg',
-            'fechahoramod',
-        ))->where("empleadocliente.idEmpleadoCliente = $idEmpleado")->limit(1);
+        ))->where("usuario.idUsuario = $idUsuario")->limit(1);
         //        echo $select->getSqlString();
         $datos = $this->selectWith($select)->toArray();
         if (count($datos) > 0) {

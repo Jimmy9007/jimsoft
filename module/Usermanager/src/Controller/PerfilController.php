@@ -63,10 +63,12 @@ class PerfilController extends AbstractActionController
         $filtro = " usuario.estado = 'Activo' ORDER BY usuario.idUsuario DESC";
         $infosesion = $this->getInfoSesion();
         $usuarios = $this->DAO->usuariosAll($filtro);
+        $infoUsuario = $this->DAO->getUsuarioDetalle($infosesion['idUsuario']);
         return new ViewModel([
             'usuario' =>  $infosesion['usuario'],
             'foto' =>  $infosesion['foto'],
             'usuarios' =>  $usuarios,
+            'infoUsuario' =>  $infoUsuario,
         ]);
     }
 
@@ -130,6 +132,52 @@ class PerfilController extends AbstractActionController
         ));
     }
     //------------------------------------------------------------------------------
+    public function detalleAction()
+    {
+        $idUsuario = (int) $this->params()->fromQuery('idUsuario', 0);
+        $infoUsuario = $this->DAO->getUsuarioDetalle($idUsuario);
+        $view = new ViewModel(['form' => $infoUsuario]);
+        $view->setTerminal(true);
+        return $view;
+    }
+    //------------------------------------------------------------------------------  
+    public function editarAction()
+    {
+        $idEmpleado = (int) $this->params()->fromQuery('idEmpleado', 0);
+        $form = $this->getFormulario('editar', $idEmpleado);
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $session = $this->getInfoSesion();
+                $empleadoOBJ = new Empleadocliente($form->getData());
+                $empleadoOBJ->setModificadopor($session['login']);
+                $empleadoOBJ->setFechahoramod(date('Y-m-d H:i:s'));
+                try {
+                    $this->DAO->editar($empleadoOBJ);
+                    $this->flashMessenger()->addSuccessMessage('EL EMPLEADO FUE EDITADO EN JIMSOFT');
+                    return $this->redirect()->toUrl('index');
+                } catch (\Exception $ex) {
+                    $msgLog = "\n" . date('Y-m-d H:i:s') . " EDITAR EMPLEADO - EmpleadoclienteController->registrar \n"
+                        . $ex->getMessage()
+                        . "\n----------------------------------------------------------------------- \n";
+                    $file = fopen($this->rutaLog . 'jimsoft.log', 'a');
+                    fwrite($file, $msgLog);
+                    fclose($file);
+                    $this->flashMessenger()->addErrorMessage('SE HA PRESENTADO UN INCONVENIENTE! <br>EL EMPLEADO NO FUE EDITADO EN JIMSOFT.');
+                }
+            } else {
+                $this->flashMessenger()->addErrorMessage('SE HA PRESENTADO UN INCONVENIENTE, EL EMPLEADO NO FUE EDITADO EN JIMSOFT');
+                return $this->redirect()->toUrl('index');
+            }
+        }
+        $view = new ViewModel([
+            'form' => $form,
+        ]);
+        $view->setTerminal(true);
+        return $view;
+    }
+    //------------------------------------------------------------------------------
     public function registrarAction()
     {
         $infosesion = $this->getInfoSesion();
@@ -174,52 +222,6 @@ class PerfilController extends AbstractActionController
         return $this->redirect()->toUrl('index');
     }
     //------------------------------------------------------------------------------  
-    public function editarAction()
-    {
-        $idEmpleado = (int) $this->params()->fromQuery('idEmpleado', 0);
-        $form = $this->getFormulario('editar', $idEmpleado);
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                $session = $this->getInfoSesion();
-                $empleadoOBJ = new Empleadocliente($form->getData());
-                $empleadoOBJ->setModificadopor($session['login']);
-                $empleadoOBJ->setFechahoramod(date('Y-m-d H:i:s'));
-                try {
-                    $this->DAO->editar($empleadoOBJ);
-                    $this->flashMessenger()->addSuccessMessage('EL EMPLEADO FUE EDITADO EN JIMSOFT');
-                    return $this->redirect()->toUrl('index');
-                } catch (\Exception $ex) {
-                    $msgLog = "\n" . date('Y-m-d H:i:s') . " EDITAR EMPLEADO - EmpleadoclienteController->registrar \n"
-                        . $ex->getMessage()
-                        . "\n----------------------------------------------------------------------- \n";
-                    $file = fopen($this->rutaLog . 'jimsoft.log', 'a');
-                    fwrite($file, $msgLog);
-                    fclose($file);
-                    $this->flashMessenger()->addErrorMessage('SE HA PRESENTADO UN INCONVENIENTE! <br>EL EMPLEADO NO FUE EDITADO EN JIMSOFT.');
-                }
-            } else {
-                $this->flashMessenger()->addErrorMessage('SE HA PRESENTADO UN INCONVENIENTE, EL EMPLEADO NO FUE EDITADO EN JIMSOFT');
-                return $this->redirect()->toUrl('index');
-            }
-        }
-        $view = new ViewModel([
-            'form' => $form,
-        ]);
-        $view->setTerminal(true);
-        return $view;
-    }
-    //------------------------------------------------------------------------------  
-    public function detalleAction()
-    {
-        $idEmpleado = (int) $this->params()->fromQuery('idEmpleado', 0);
-        $infoEmpleado = $this->DAO->getEmpleadoDetalle($idEmpleado);
-        $view = new ViewModel(['form' => $infoEmpleado]);
-        $view->setTerminal(true);
-        return $view;
-    }
-    //------------------------------------------------------------------------------
     public function eliminarAction()
     {
         $request = $this->getRequest();

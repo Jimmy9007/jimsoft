@@ -101,9 +101,13 @@ $this->headScript()->prependScript('
                 //------------------------------------------------------------------------------
                 ' . $mostrarMensajes . '
             });', 'text/javascript', array('noescape' => true))
-    ->prependFile($this->basePath('js/sistema/empleadocliente.js'))
+    ->prependFile($this->basePath('js/sistema/perfil.js'))
     ->prependFile($this->basePath('js/jquery.blockUI.js'))
     ->prependFile($this->basePath('js/cropper.min.js'));
+
+$nacimiento = new DateTime($this->infoUsuario['fechaNacimiento']);
+$ahora = new DateTime(date("Y-m-d"));
+$diferencia = $ahora->diff($nacimiento);
 
 ?>
 <style>
@@ -169,7 +173,7 @@ $this->headScript()->prependScript('
                                     <img style="border-radius: 10px; display: block;" id="avatar" class="img-responsive avatar-view" src="<?= $this->basePath('img/profile/') . $this->foto; ?>" width="100%" alt="Avatar" title="Cambie el avatar">
                                     <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                                     <div class="mask">
-                                        <p>Your Text</p>
+                                        <p>Cambie tu avatar</p>
                                         <div class="tools tools-bottom">
                                             <a href="javascript:verFoto()"><i class="fa fa-search-plus"></i></a>
                                         </div>
@@ -184,52 +188,21 @@ $this->headScript()->prependScript('
                         <h3><?= $this->usuario; ?></h3>
 
                         <ul class="list-unstyled user_data">
-                            <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
-                            </li>
-
                             <li>
-                                <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
+                                <i class="fa fa-phone"></i> <?= $this->infoUsuario['telefono'] ?>
                             </li>
-
-                            <li class="m-top-xs">
-                                <i class="fa fa-external-link user-profile-icon"></i>
-                                <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+                            <li>
+                                <i class="fa fa-envelope"></i> <?= $this->infoUsuario['email'] ?>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker user-profile-icon"></i> <?= $this->infoUsuario['direccion'] ?>
+                            </li>
+                            <li>
+                                <i class="fa fa-birthday-cake"></i> <?= $this->infoUsuario['fechaNacimiento'] . ', edad: ' . $diferencia->format("%y") . ' años'; ?>
                             </li>
                         </ul>
 
-                        <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                        <br />
-
-                        <!-- start skills -->
-                        <h4>Skills</h4>
-                        <ul class="list-unstyled user_data">
-                            <li>
-                                <p>Web Applications</p>
-                                <div class="progress progress_sm">
-                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <p>Website Design</p>
-                                <div class="progress progress_sm">
-                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="70"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <p>Automation & Testing</p>
-                                <div class="progress progress_sm">
-                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <p>UI / UX</p>
-                                <div class="progress progress_sm">
-                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- end of skills -->
-
+                        <button class="btn btn-success" onclick="verEditar(<?= $this->infoUsuario['idEmpleadoCliente']; ?>)"><i class="fa fa-edit m-right-xs"></i> Editar Perfil</button>
                     </div>
                     <div class="col-md-9 col-sm-9 ">
 
@@ -288,7 +261,7 @@ $this->headScript()->prependScript('
                                                             <div class=" col-sm-12 emphasis">
                                                                 <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
                                                                     </i> <i class="fa fa-comments-o"></i> </button>
-                                                                <button type="button" class="btn btn-primary btn-sm">
+                                                                <button type="button" class="btn btn-primary btn-sm" onclick="verPerfil(' . $user['idUsuario'] . ')">
                                                                     <i class="fa fa-user"> </i> Ver Perfil
                                                                 </button>
                                                             </div>
@@ -492,8 +465,8 @@ $this->headScript()->prependScript('
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="crop">Cortar</button>
+                <button type="button" class="btn btn-success" id="crop"><i class="fa fa-scissors"></i> Cortar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
             </div>
         </div>
     </div>
