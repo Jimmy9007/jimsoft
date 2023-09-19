@@ -103,7 +103,9 @@ $this->headScript()->prependScript('
             });', 'text/javascript', array('noescape' => true))
     ->prependFile($this->basePath('js/sistema/perfil.js'))
     ->prependFile($this->basePath('js/jquery.blockUI.js'))
-    ->prependFile($this->basePath('js/cropper.min.js'));
+    ->prependFile($this->basePath('js/cropper.min.js'))
+    ->prependFile($this->basePath('js/filterizr.min.js'))
+    ->prependFile($this->basePath('js/jquery.filterizr.min.js'));
 
 $nacimiento = new DateTime($this->infoUsuario['fechaNacimiento']);
 $ahora = new DateTime(date("Y-m-d"));
@@ -133,9 +135,9 @@ $diferencia = $ahora->diff($nacimiento);
         <div class="title_right">
             <div class="col-md-5 col-sm-5  form-group pull-right top_search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar...">
+                    <input type="text" name="filtr-search" class="form-control" placeholder="Buscar..." data-search="">
                     <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">Go!</button>
+                        <button class="btn btn-secondary" type="button"><i class="fa fa-search-plus" style="color:white;"></i></button>
                     </span>
                 </div>
             </div>
@@ -227,35 +229,29 @@ $diferencia = $ahora->diff($nacimiento);
                                             <div class="x_content">
                                                 <div class="col-md-12 col-sm-12  text-center">
                                                     <ul class="pagination pagination-split">
-                                                        <li><a href="#">A</a></li>
-                                                        <li><a href="#">B</a></li>
-                                                        <li><a href="#">C</a></li>
-                                                        <li><a href="#">D</a></li>
-                                                        <li><a href="#">E</a></li>
-                                                        <li>...</li>
-                                                        <li><a href="#">W</a></li>
-                                                        <li><a href="#">X</a></li>
-                                                        <li><a href="#">Y</a></li>
-                                                        <li><a href="#">Z</a></li>
+                                                        <li><button type="button" class="btn btn-outline-info" data-filter="all">Todos</button></li>
+                                                        <li><button type="button" class="btn btn-outline-info" data-filter="Masculino">Hombres</button></li>
+                                                        <li><button type="button" class="btn btn-outline-info" data-filter="Femenino">Mujeres</button></li>
                                                     </ul>
                                                 </div>
 
                                                 <div class="clearfix"></div>
-                                                <?php
-                                                foreach ($this->usuarios as $user) {
-                                                    echo '<div class="col-md-4 col-sm-4  profile_details">
+                                                <div class="filtr-container">
+                                                    <?php
+                                                    foreach ($this->usuarios as $user) {
+                                                        echo '<div class="col-md-4 col-sm-4  profile_details filtr-item" data-category="' . $user['genero'] . '" data-sort="' . $user['genero'] . '">
                                                     <div class="well profile_view">
                                                         <div class="col-sm-12">';
-                                                    echo '<h4 class="brief"><i>' . $user['identificacion'] . '</i></h4>';
-                                                    echo '<div class="left col-md-7 col-sm-7">';
-                                                    echo '<h2>' . substr($user['usuario'], 0, 15) . '</h2>';
-                                                    echo '<ul class="list-unstyled">';
-                                                    echo '<li><i class="fa fa-phone"></i> <b>' . $user['telefono'] . '</b></li>';
-                                                    echo '</ul>
+                                                        echo '<h4 class="brief"><i>' . $user['identificacion'] . '</i></h4>';
+                                                        echo '<div class="left col-md-7 col-sm-7">';
+                                                        echo '<h2>' . substr($user['usuario'], 0, 15) . '</h2>';
+                                                        echo '<ul class="list-unstyled">';
+                                                        echo '<li><i class="fa fa-phone"></i> <b>' . $user['telefono'] . '</b></li>';
+                                                        echo '</ul>
                                                             </div>
                                                             <div class="right col-md-5 col-sm-5 text-center">';
-                                                    echo '<img src="' . $this->basePath('img/profile/') . $user['foto'] . '" alt="' . $user['usuario'] . '" class="img-circle img-fluid">';
-                                                    echo '</div>
+                                                        echo '<img src="' . $this->basePath('img/profile/') . $user['foto'] . '" alt="' . $user['usuario'] . '" class="img-circle img-fluid">';
+                                                        echo '</div>
                                                         </div>
                                                         <div class=" profile-bottom text-center">                                                          
                                                             <div class=" col-sm-12 emphasis">
@@ -268,8 +264,9 @@ $diferencia = $ahora->diff($nacimiento);
                                                         </div>
                                                     </div>
                                                 </div>';
-                                                }
-                                                ?>
+                                                    }
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -473,6 +470,28 @@ $diferencia = $ahora->diff($nacimiento);
 </div>
 
 <script>
+    const options = {
+        spinner: {
+            // This is the only mandatory setting if you simply wish
+            // to enable the built-in spinner
+            enabled: true,
+            // Further (optional) customization options.
+            fillColor: '#2184D0',
+            styles: {
+                height: '75px',
+                margin: '0 auto',
+                width: '75px',
+                'z-index': 2,
+            },
+        }
+    };
+
+    var filterizd = $('.filtr-container').filterizr({
+        layout: 'sameWidth',
+        delay: 5,
+        delayMode: 'progressive'
+    });
+
     function verFoto() {
         Swal.fire({
             imageUrl: '<?= $this->basePath('img/profile/') . $this->foto; ?>',
