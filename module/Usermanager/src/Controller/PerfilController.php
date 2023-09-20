@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Usermanager\Controller;
 
+use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Model\JsonModel;
 use Usermanager\Modelo\DAO\PerfilDAO;
 use Usermanager\Formularios\EmpleadoclienteForm;
+use Usermanager\Formularios\CambiarpasswordForm;
 use Usermanager\Modelo\Entidades\Empleadocliente;
 
 class PerfilController extends AbstractActionController
@@ -34,13 +36,13 @@ class PerfilController extends AbstractActionController
             'idEmpleadoCliente ' => 0,
             'login' => 'SIN INICIO DE SESION',
             'usuario' => 'SIN INICIO DE SESION',
-            'foto' => 'perfilHombre.png'
+            'foto' => 'perfilHombre.png',
         ];
         $auth = new AuthenticationService();
         if ($auth->hasIdentity()) {
             $infoSesion['idUsuario'] = $auth->getIdentity()->idUsuario;
-            $infoSesion['login'] = $auth->getIdentity()->login;
             $infoSesion['idEmpleadoCliente'] = $auth->getIdentity()->idEmpleadoCliente;
+            $infoSesion['login'] = $auth->getIdentity()->login;
             $infoSesion['usuario'] = $auth->getIdentity()->usuario;
             $infoSesion['foto'] = $auth->getIdentity()->foto;
         }
@@ -173,6 +175,45 @@ class PerfilController extends AbstractActionController
         }
         $view = new ViewModel([
             'form' => $form,
+        ]);
+        $view->setTerminal(true);
+        return $view;
+    }
+    //------------------------------------------------------------------------------
+    public function cambiarpasswordAction()
+    {
+        $passwordForm = new CambiarpasswordForm();
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $error = 1;
+            $password = $this->params()->fromPost('password', '');
+            $passwordactual = $this->params()->fromPost('passwordactual', '');
+            $session = $this->getInfoSesion();
+            $usuarioArray = $this->DAO->getUsuarioDetalle($session['idUsuario']);
+            $hash = new Bcrypt();
+            if ($hash->verify($passwordactual, $usuarioArray['password'])) {
+                try {
+                    $this->DAO->updatePassword($password, $session);
+                    $error = 0;
+                    $this->flashMessenger()->addSuccessMessage('CONTRASEÑA ACTUALIZADA CORRECTAMENTE');
+                } catch (\Exception $ex) {
+                    $msgLog = "\n" . date('Y-m-d H:i:s') . " Cambiar Password - PerfilController->cambiarpasswordAction \n"
+                        . $ex->getMessage()
+                        . "\n----------------------------------------------------------------------- \n";
+                    $file = fopen($this->rutaLog . 'jimsoft.log', 'a');
+                    fwrite($file, $msgLog);
+                    fclose($file);
+                    $this->flashMessenger()->addErrorMessage('SE HA PRESENTADO UN INCONVENIENTE EN JIMSOFT.');
+                }
+            } else {
+                $error = 2;
+            }
+            return new JsonModel(array(
+                'error' => $error,
+            ));
+        }
+        $view = new ViewModel([
+            'form' => $passwordForm,
         ]);
         $view->setTerminal(true);
         return $view;

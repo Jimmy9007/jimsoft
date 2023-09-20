@@ -2,6 +2,7 @@
 
 namespace Usermanager\Modelo\DAO;
 
+use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Db\TableGateway\AbstractTableGateway;
 use Laminas\Db\Adapter\Adapter;
 use Laminas\Db\Sql\Expression;
@@ -13,7 +14,7 @@ use Usermanager\Modelo\Entidades\Empleadocliente;
 class PerfilDAO extends AbstractTableGateway
 {
 
-    protected $table = 'empleadocliente';
+    protected $table = 'usuario';
 
     //------------------------------------------------------------------------------
 
@@ -94,6 +95,25 @@ class PerfilDAO extends AbstractTableGateway
     public function getEmpleado($idEmpleado = 0)
     {
         return new Empleadocliente($this->select(array('idEmpleadoCliente' => $idEmpleado))->current()->getArrayCopy());
+    }
+    //------------------------------------------------------------------------------
+    public function updatePassword($password = '', $session = array())
+    {
+        try {
+            $this->table = "usuario";
+            $update = new Update($this->table);
+            $update->set([
+                'password' => (new Bcrypt())->create($password),
+                'passwordseguro' => $password,
+                'modificadopor' => $session['login'],
+                'fechahoramod' => date('Y-m-d H:i:s'),
+            ]);
+            $update->where("usuario.idUsuario = " . $session['idUsuario']);
+            //echo $update->getSqlString();
+            $this->updateWith($update);
+        } catch (\Exception $e) {
+            throw new \Exception($e);
+        }
     }
     //------------------------------------------------------------------------------
 

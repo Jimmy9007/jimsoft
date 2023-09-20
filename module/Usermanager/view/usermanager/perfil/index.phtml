@@ -203,8 +203,17 @@ $diferencia = $ahora->diff($nacimiento);
                                 <i class="fa fa-birthday-cake"></i> <?= $this->infoUsuario['fechaNacimiento'] . ', edad: ' . $diferencia->format("%y") . ' años'; ?>
                             </li>
                         </ul>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <button type="button" class="btn btn-success" onclick="verEditar(<?= $this->infoUsuario['idEmpleadoCliente']; ?>)"><i class="fa fa-edit m-right-xs"></i> Editar Perfil</button>
 
-                        <button class="btn btn-success" onclick="verEditar(<?= $this->infoUsuario['idEmpleadoCliente']; ?>)"><i class="fa fa-edit m-right-xs"></i> Editar Perfil</button>
+                            <div class="btn-group" role="group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" href="javascript:cambiarPassword()"><i class="fa fa-unlock-alt"></i> Cambiar Contraseña</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-9 col-sm-9 ">
 
@@ -242,11 +251,12 @@ $diferencia = $ahora->diff($nacimiento);
                                                         echo '<div class="col-md-4 col-sm-4  profile_details filtr-item" data-category="' . $user['genero'] . '" data-sort="' . $user['genero'] . '">
                                                     <div class="well profile_view">
                                                         <div class="col-sm-12">';
-                                                        echo '<h4 class="brief"><i>' . $user['identificacion'] . '</i></h4>';
+                                                        echo '<h4 class="brief"><small><i>' . substr($user['usuario'], 0, 26) . '</i></small></h4>';
                                                         echo '<div class="left col-md-7 col-sm-7">';
-                                                        echo '<h2>' . substr($user['usuario'], 0, 15) . '</h2>';
+                                                        echo '<h2 hidden>' . $user['usuario'] . '</h2>';
                                                         echo '<ul class="list-unstyled">';
                                                         echo '<li><i class="fa fa-phone"></i> <b>' . $user['telefono'] . '</b></li>';
+                                                        echo '<li><i class="fas fa-address-card"></i> <small>' . $user['identificacion'] . '</small></li>';
                                                         echo '</ul>
                                                             </div>
                                                             <div class="right col-md-5 col-sm-5 text-center">';
@@ -258,7 +268,7 @@ $diferencia = $ahora->diff($nacimiento);
                                                                 <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
                                                                     </i> <i class="fa fa-comments-o"></i> </button>
                                                                 <button type="button" class="btn btn-primary btn-sm" onclick="verPerfil(' . $user['idUsuario'] . ')">
-                                                                    <i class="fa fa-user"> </i> Ver Perfil
+                                                                    <i class="fa fa-user"></i> <i class="fa fa-eye"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -470,12 +480,12 @@ $diferencia = $ahora->diff($nacimiento);
 </div>
 
 <script>
-    const options = {
+    var filterizd = $('.filtr-container').filterizr({
+        layout: 'sameWidth',
+        delay: 5,
+        delayMode: 'progressive',
         spinner: {
-            // This is the only mandatory setting if you simply wish
-            // to enable the built-in spinner
             enabled: true,
-            // Further (optional) customization options.
             fillColor: '#2184D0',
             styles: {
                 height: '75px',
@@ -483,13 +493,7 @@ $diferencia = $ahora->diff($nacimiento);
                 width: '75px',
                 'z-index': 2,
             },
-        }
-    };
-
-    var filterizd = $('.filtr-container').filterizr({
-        layout: 'sameWidth',
-        delay: 5,
-        delayMode: 'progressive'
+        },
     });
 
     function verFoto() {
