@@ -14,7 +14,7 @@ use Usermanager\Modelo\Entidades\Empleadocliente;
 class PerfilDAO extends AbstractTableGateway
 {
 
-    protected $table = 'usuario';
+    protected $table = 'empleadocliente';
 
     //------------------------------------------------------------------------------
 
@@ -116,33 +116,6 @@ class PerfilDAO extends AbstractTableGateway
         }
     }
     //------------------------------------------------------------------------------
-
-    public function existeIdentificacion($identificacion = '')
-    {
-        $this->table = 'empleadocliente';
-        $rowset = $this->select(array('identificacion' => $identificacion));
-        $row = $rowset->current();
-        if (!$row) {
-            return 0;
-        }
-        return 1;
-    }
-
-    //------------------------------------------------------------------------------
-
-    public function registrar(Empleadocliente $empleadoOBJ = null)
-    {
-        try {
-            $this->table = 'empleadocliente';
-            $insert = new Insert($this->table);
-            $datos = $empleadoOBJ->getArrayCopy();
-            unset($datos['idEmpleadoCliente']);
-            $insert->values($datos);
-            $this->insertWith($insert);
-        } catch (\Exception $e) {
-            throw new \Exception($e);
-        }
-    }
     public function editar(Empleadocliente $empleadoOBJ = null)
     {
         try {
@@ -158,24 +131,6 @@ class PerfilDAO extends AbstractTableGateway
             throw new \Exception($e);
         }
     }
-    public function eliminar(Empleadocliente $empleadoOBJ = null)
-    {
-        try {
-            $this->table = "empleadocliente";
-            $update = new Update($this->table);
-            $update->set([
-                'estado' => 'Eliminado',
-                'modificadopor' => $empleadoOBJ->getModificadopor(),
-                'fechahoramod' => $empleadoOBJ->getFechahoramod(),
-            ]);
-            $update->where("empleadocliente.idEmpleadoCliente = " . $empleadoOBJ->getIdEmpleadoCliente());
-            //echo $update->getSqlString();
-            $this->updateWith($update);
-        } catch (\Exception $e) {
-            throw new \Exception($e);
-        }
-    }
-
     //------------------------------------------------------------------------------
     public function cambiarFoto($idUsuario = 0, $login = '', $avatar = '')
     {

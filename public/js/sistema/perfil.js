@@ -58,7 +58,7 @@ function validarGuardar(evt, formulario, tipo) {
 function verificarPassword() {
     if ($("#password").val() !== '') {
         if ($("#password").val().length < 6) {
-            alert("EL PASSWORD DEBE TENER AL MENOS 6 CARACTERES");
+            Swal.fire('EL PASSWORD DEBE TENER AL MENOS 6 CARACTERES', 'JimSoft', 'error');
             $("#password").attr('type', 'password');
             $("#passwordConfirm").attr('type', 'password');
             $("#password").val('');
@@ -68,7 +68,7 @@ function verificarPassword() {
     }
     if ($("#password").val() !== '' && $("#passwordConfirm").val() !== '') {
         if ($("#password").val() !== $("#passwordConfirm").val()) {
-            alert("EL PASSWORD Y SU CONFIRMACION NO COINCIDEN");
+            Swal.fire('EL PASSWORD Y SU CONFIRMACION NO COINCIDEN', 'JimSoft', 'error');
             $("#password").attr('type', 'password');
             $("#passwordConfirm").attr('type', 'password');
             $("#password").val('');
@@ -78,26 +78,64 @@ function verificarPassword() {
     }
 }
 function guardarNuevoPassword() {
-    if (confirm("PARA QUE EL CAMBIO DE CONTRASEÑA SEA REGISTRADO LA SESION ACTUAL DEBE CERRARSE \n ¿ DESEA REGISTRAR EL CAMBIO DE CONTRASEÑA ?")) {
-        $.post('cambiarpassword', $("#formCambiarpassword").serialize(), setNuevoPassword, 'json');
-        bloqueoAjax();
-    }
+    Swal.fire({
+        html:
+            '<h2><b>PARA QUE EL CAMBIO DE CONTRASEÑA SEA REGISTRADO LA SESION ACTUAL DEBE CERRARSE</b></h2>' +
+            '<h4><small>&#191;DESEA REGISTRAR EL CAMBIO DE CONTRASEÑA&#63;</small></h4>' +
+            '<p class="animated bounce estilologo"><i><i class="fa fa-paw"></i>JimSoft</i></p>',
+        icon: 'info',
+        allowOutsideClick: false,
+        confirmButtonText: 'Aceptar',
+        showCancelButton: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.post('cambiarpassword', $("#formCambiarpassword").serialize(), setNuevoPassword, 'json');
+            bloqueoAjax();
+        }
+    });
     return false;
 }
 
 function setNuevoPassword(respuesta) {
     switch (parseInt(respuesta['error'])) {
         case 0:
-            alert("LA CONTRASEÑA FUE ACTUALIZADA EN JIMSOFT");
-            location.href = '/jimsoft/cerrarsesion';
+            Swal.fire({
+                title: 'LA CONTRASEÑA FUE ACTUALIZADA',
+                icon: 'success',
+                text: 'JimSoft',
+                allowOutsideClick: false,
+                confirmButtonText: 'Aceptar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = '/jimsoft/cerrarsesion';
+                }
+            });
             break;
         case 1:
-            alert("SE HA PRESENTADO UN ERROR, LA CONTRASEÑA NO FUE ACTUALIZADA");
-            $('#modalFormulario').modal('hide');
+            Swal.fire({
+                title: 'LA CONTRASEÑA NO FUE ACTUALIZADA',
+                icon: 'error',
+                text: 'JimSoft',
+                allowOutsideClick: false,
+                confirmButtonText: 'Aceptar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#modalFormulario').modal('hide');
+                }
+            });
             break;
         case 2:
-            alert("ERROR, LA CONTRASEÑA ACTUAL ES INCORRECTA");
-            $('#modalFormulario').modal('hide');
+            Swal.fire({
+                title: 'LA CONTRASEÑA ACTUAL ES INCORRECTA',
+                icon: 'error',
+                text: 'JimSoft',
+                allowOutsideClick: false,
+                confirmButtonText: 'Aceptar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#modalFormulario').modal('hide');
+                }
+            });
             break;
     }
     return false;
